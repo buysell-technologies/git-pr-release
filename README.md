@@ -1,36 +1,36 @@
 # GitPrRelease
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/git-pr-release`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'git-pr-release'
+group :development do
+  # Creates pull requests from master into deploy/staging and deploy/production
+  gem 'git-pr-release', git: 'https://github.com/buysell-technologies/git-pr-release', tag: 'v1.0'
+end
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+You must then create a `.git-pr-release` config file:
 
-    $ gem install git-pr-release
+    $ cat <<EOF > .git-pr-release
+    [pr-release "branch"]
+        production = deploy/production,deploy/staging
+        staging = master
+    EOF
 
-## Usage
+Then you can create pull-requests using the following command:
 
-TODO: Write usage instructions here
+    $ bundle exec git-pr-release
 
-## Development
+You will be asked for your github credentials the first time you make a request.
+It will then be saved in your ~/.gitconfig like:
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/git-pr-release.
-
+```
+[pr-release]
+    token = 58d233184c34287981ks9823a0501352e36340ea0
+```
