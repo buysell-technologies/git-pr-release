@@ -34,3 +34,18 @@ It will then be saved in your ~/.gitconfig like:
 [pr-release]
     token = 58d233184c34287981ks9823a0501352e36340ea0
 ```
+
+# Configuration
+Here is how to config the `.git-pr-release` file.
+
+To create a single pull request, enter a single branch name:
+
+    [pr-release "branch"]
+        production = deploy/staging
+        staging = master
+
+To create a pull-requests on multiple branches, enter multiple branches separated by `,`s
+
+    [pr-release "branch"]
+        production = deploy/production,deploy/staging
+        staging = master
